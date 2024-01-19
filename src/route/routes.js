@@ -1,14 +1,14 @@
-import { createBrowserRouter } from 'react-router-dom'
-import Home from '../pages/home';
+import { createBrowserRouter } from "react-router-dom";
+import Home from "../pages/home";
 
 export const PATHS = {
-    HOME: '/',
-    ABOUT: '/about'
-}
+    HOME: "/",
+    ABOUT: "/about",
+};
 
 export const router = createBrowserRouter([
     {
-        path:  PATHS.HOME,
+        path: PATHS.HOME,
         element: <Home />,
     },
     {

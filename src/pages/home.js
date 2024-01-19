@@ -6,7 +6,7 @@ function Home() {
             <Navigation />
             Home page
         </div>
-    )
+    );
 }
 
 export default Home;

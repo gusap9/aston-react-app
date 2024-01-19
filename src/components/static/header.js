@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { PATHS } from "../../route/routes";
 
-
 const Navigation = () => {
     return (
         <div>
@@ -10,7 +9,7 @@ const Navigation = () => {
                 <Link to={PATHS.ABOUT}>About</Link>
             </nav>
         </div>
-    )
+    );
 };
 
 export default Navigation;
