@@ -1,9 +1,9 @@
-import Navigation from "../components/static/header";
+import Header from "../../components/static/header";
 
 function Home() {
     return (
         <div>
-            <Navigation />
+            <Header />
             Home page
         </div>
     );

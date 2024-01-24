@@ -1,0 +1,84 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-style: i;
+    color: black;
+}
+.back {
+    position: fixed;
+    background: linear-gradient(104.34deg, #41522E -15.34%, #BE8022 145.95%);
+    width: 100%;
+    height: 100%;
+}
+
+.blur {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+.signin_box {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.signin_box form{
+    position: absolute;
+    min-width: 30%;
+    padding: 20px 0;
+    background: white;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.signin_box input {
+    width: 345px;
+    height: 50px;
+    padding: 0 20px;
+    margin-bottom: 10px;
+    background: #FFFFFF;
+    border: 1px solid #C9CACC;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+}
+.signin_box input::placeholder{
+    font-style: italic;
+}
+.signin_box form p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    margin-bottom: 7px;
+    margin-top: 0px;
+    text-align: start;
+    width: 345px;
+}
+.signin_box button {
+    background: black;
+    margin: 8px 0px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    width: 345px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.signin_box form p:last-child{
+    
+    padding-top: 5px;
+    text-align: center;
+}
