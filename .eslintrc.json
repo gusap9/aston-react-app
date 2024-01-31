@@ -3,12 +3,23 @@
         "browser": true,
         "es2021": true
     },
+     "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
     "extends": [
         "eslint:recommended",
         "plugin:react/jsx-runtime",
         "plugin:react/recommended",
         "plugin:import/recommended",
-        "prettier"
+        "prettier",
+        "plugin:@tanstack/eslint-plugin-query/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -21,6 +32,7 @@
         "react/react-in-jsx-scope": "off",
         "react/jsx-no-useless-fragment": "warn",
         "no-unused-expressions": "warn",
+        "react/prop-types": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
 }
