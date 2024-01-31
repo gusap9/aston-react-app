@@ -1,0 +1,27 @@
+.form{
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    width: 100%;
+    justify-content: center;
+}
+.input{
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.05) inset;
+    min-width: 300px;
+    font-size: 16px;
+    height: 36px;
+    padding: 0px 20px;
+    border-radius: 2.6em;
+    margin-right: 1em;
+}
+
+.button{
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+}
+.button_icon{
+    position: relative;
+    width: 36px;
+    height: 36px;
+}
