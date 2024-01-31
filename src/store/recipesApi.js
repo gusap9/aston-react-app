@@ -24,7 +24,7 @@ export const recipesApi = createApi({
 
 export const {
     useGetCategoryQuery,
-    useGetSingleRecipeQuery,
+    useSingleRecipeQuery,
     useSortByCategoryQuery,
     useRecipeSearchQuery,
 } = recipesApi;
