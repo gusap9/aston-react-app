@@ -1,8 +1,7 @@
-import { useForm } from 'react-hook-form';
-import styles from '../SignIn/SignIn.module.css'
-import { Link } from 'react-router-dom';
-import { PATHS } from '../../route/routes';
-
+import { useForm } from "react-hook-form";
+import styles from "../SignIn/SignIn.module.css";
+import { Link } from "react-router-dom";
+import { PATHS } from "../../route/routes";
 
 function SignIn() {
     const {
@@ -12,16 +11,16 @@ function SignIn() {
     } = useForm();
     const onSubmit = (data) => {
         // const { email, password } = data;
-        return data
-    }
-    
+        return data;
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.back}></div>
             <div className={styles.blur}></div>
             <div className={styles.signin_box}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <h2>Recipe Finder</h2>
+                    <h2>Sign In</h2>
                     <p>Login</p>
                     <input
                         name="email"
@@ -36,7 +35,9 @@ function SignIn() {
                         placeholder="Enter your password here:"
                         {...register("password", { required: true })}
                     />
-                    <button type="submit">Log In</button>
+                    <Link to={PATHS.HOME}>
+                        <button type="submit">Log In</button>
+                    </Link>
                     <p>
                         New to Recipe Finder? &nbsp;
                         <Link to={PATHS.SIGNUP}>Create an account</Link>
