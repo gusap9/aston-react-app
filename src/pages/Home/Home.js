@@ -1,12 +1,11 @@
-import Header from "../../components/static/header";
+import { useGetCategoryQuery } from "../../store/recipesApi";
+import CategoryList from "../../components/Category/CategoryList";
+import Loader from "../../components/Loader/Loader";
 
 function Home() {
-    return (
-        <div>
-            <Header />
-            Home page
-        </div>
-    );
+    const { data, isLoading } = useGetCategoryQuery();
+    if (isLoading) return <Loader />;
+    return <CategoryList categories={data.categories} />;
 }
 
 export default Home;

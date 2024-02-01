@@ -1,0 +1,10 @@
+.container {
+    padding-top: 50px;
+    padding: 0 20px;
+}
+.not-found{
+    display:flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}

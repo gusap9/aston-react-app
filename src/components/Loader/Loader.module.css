@@ -1,0 +1,11 @@
+.loader{
+    padding-top: 100px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.loader_img{
+    width: auto;
+    height: 100px;
+}

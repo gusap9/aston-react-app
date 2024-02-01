@@ -1,0 +1,40 @@
+.header_container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 100;
+}
+.navigator{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    justify-content: space-between;
+    background-color: #cbcbcbba;
+    z-index: 100;
+}
+.navigator_container {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 5px 10px;
+    gap:10px;
+}
+.link_container {
+    position: relative;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+.avatar {
+    padding-right: 10px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+.link_container a {
+    display: flex;
+    align-items: center;
+}
