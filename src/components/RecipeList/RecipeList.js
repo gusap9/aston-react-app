@@ -4,18 +4,19 @@ import { useSortByCategoryQuery } from "../../store/recipesApi";
 import Loader from "../Loader/Loader";
 import Search from '../Search/Search'
 
-const RecipeList = ({ recipe }) => {
-    const params = useParams();
-    const { data, isLoading } = useSortByCategoryQuery(params.title);
+const RecipeList = () => {
+    const {title} = useParams();
+    const { data, isLoading } = useSortByCategoryQuery(title);
     if (isLoading) {
         return <Loader />;
     }
-    recipe = data.meals;
+    let recipe = data.meals;
+    
     return (
         <div className={styles.container}>
             <Search />
             <div className={styles.section_title}>
-                recipes with {params.title}
+                recipes with {title}
             </div>
             <section className={styles.section_main}>
                 {recipe?.map((mealItem) => {

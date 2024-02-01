@@ -95,6 +95,7 @@
 }
 .ingredients_list span {
     font-size: 13px;
+    text-transform: lowercase;
 }
 .ingredients_list_dot {
     background-color: #3a9691;
@@ -132,6 +133,9 @@
     margin-right: 5px;
     background-color: #3a9691;
     border-radius: 50%;
+}
+.measures_list span {
+    text-transform: lowercase;
 }
 .instructions {
     margin-top: 20px;
