@@ -1,11 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { recipesApi } from "./recipesApi";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { recipesApi } from "./recipesApi";
+import userSlice from "./slices/userSlice";
+
+const rootReducers = combineReducers({
+    user: userSlice,
+    [recipesApi.reducerPath]: recipesApi.reducer,
+});
 
 export const store = configureStore({
-    reducer: {
-        [recipesApi.reducerPath]: recipesApi.reducer,
-    },
+    reducer: rootReducers,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(recipesApi.middleware),
 });
