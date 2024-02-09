@@ -1,9 +1,17 @@
+import { useContext } from "react";
+import { getAuth } from "firebase/auth";
+import { useDispatch } from "react-redux";
 import CustomLink from "../static/CustomLink/CustomLink";
 import { PATHS } from "../../route/routes";
 import Avatar from "../../assets/avatar.svg";
 import styles from "./Header.module.css";
+import { removeUser } from "../../store/slices/userSlice";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const { currentUser } = useContext(AuthContext);
+    const auth = getAuth();
     return (
         <header className={styles.header_container}>
             <div className={styles.navigator}>
@@ -19,13 +27,29 @@ const Header = () => {
                         </CustomLink>
                     </div>
                 </nav>
-                <nav className={styles.navigator_container}>
-                    <CustomLink to={PATHS.SIGNIN}>Sign In</CustomLink>
-                    <CustomLink to={PATHS.SIGNUP}>Sign Up</CustomLink>
-                </nav>
+                {currentUser ? (
+                    <nav className={styles.navigator_container}>
+                        <CustomLink to={PATHS.HISTORY}>History</CustomLink>
+                        <CustomLink to={PATHS.FAVORITES}>Favorites</CustomLink>
+                        <CustomLink
+                            to={PATHS.SIGNIN}
+                            onClick={() => {
+                                dispatch(removeUser());
+                                auth.signOut();
+                            }}
+                        >
+                            Log out
+                        </CustomLink>
+                    </nav>
+                ) : (
+                    <nav className={styles.navigator_container}>
+                        <CustomLink to={PATHS.SIGNIN}>Sign In</CustomLink>
+                        <CustomLink to={PATHS.SIGNUP}>Sign Up</CustomLink>
+                    </nav>
+                )}
             </div>
         </header>
     );
-}
+};
 
 export default Header;
