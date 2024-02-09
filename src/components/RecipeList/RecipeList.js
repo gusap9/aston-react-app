@@ -2,22 +2,17 @@ import { Link, useParams } from "react-router-dom";
 import styles from "./RecipeList.module.css";
 import { useSortByCategoryQuery } from "../../store/recipesApi";
 import Loader from "../Loader/Loader";
-import Search from '../Search/Search'
 
 const RecipeList = () => {
-    const {title} = useParams();
+    const { title } = useParams();
     const { data, isLoading } = useSortByCategoryQuery(title);
     if (isLoading) {
         return <Loader />;
     }
     let recipe = data.meals;
-    
     return (
         <div className={styles.container}>
-            <Search />
-            <div className={styles.section_title}>
-                recipes with {title}
-            </div>
+            <div className={styles.section_title}>recipes with {title}</div>
             <section className={styles.section_main}>
                 {recipe?.map((mealItem) => {
                     const {
@@ -54,7 +49,6 @@ const RecipeList = () => {
                         </Link>
                     );
                 })}
-                ;
             </section>
         </div>
     );
