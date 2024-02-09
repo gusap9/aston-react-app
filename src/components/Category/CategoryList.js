@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
 import styles from "./Category.module.css";
-import Search from "../Search/Search";
 
 const CategoryList = ({ categories }) => {
     return (
         <div className={styles.container}>
-            <Search />
             <div className={styles.section_title}>categories</div>
             <section className={styles.section_main}>
                 {categories.map((category) => {

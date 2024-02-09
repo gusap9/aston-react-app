@@ -1,0 +1,25 @@
+.section {
+    padding: 20px;
+}
+.section_title{
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    letter-spacing: 4px;
+    font-weight: bold;
+    font-size: 24px;
+    display: inline-block;
+    border-bottom: 1px solid rgb(190, 128, 34);
+}
+.item{
+    font-size: 20px;
+}
+.main{
+    display: flex;
+    flex-direction: column;
+}
+.main a{
+    color: black;
+}
+.main button{
+    margin-left: 10px;
+}

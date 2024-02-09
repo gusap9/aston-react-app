@@ -31,7 +31,7 @@
 }
 .signin_box form {
     position: absolute;
-    min-width: 30%;
+    min-width: 420px;
     padding: 20px 0;
     background: white;
     border-radius: 16px;
@@ -77,6 +77,9 @@
     color: white;
     border: none;
     cursor: pointer;
+}
+.signin_box button:disabled {
+    background: gray;
 }
 .signin_box form p:last-child {
     padding-top: 5px;

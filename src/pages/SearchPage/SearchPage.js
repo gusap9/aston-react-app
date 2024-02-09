@@ -1,23 +1,26 @@
+import React from "react";
 import { Link, useParams } from "react-router-dom";
-import styles from "./RecipeList.module.css";
-import { useSortByCategoryQuery } from "../../store/recipesApi";
-import Loader from "../Loader/Loader";
+import styles from "./SearchPage.module.css";
+import Search from "../../components/Search/Search";
+import { useRecipeSearchQuery } from "../../store/recipesApi";
+import Loader from "../../components/Loader/Loader";
 
-const RecipeList = () => {
-    const { title } = useParams();
-    const { data, isLoading } = useSortByCategoryQuery(title);
-    if (isLoading) {
-        return <Loader />;
-    }
+const SearchPage = () => {
+    const { name } = useParams();
+    const { isLoading, data } = useRecipeSearchQuery(name);
+    if (isLoading) return <Loader />;
     let recipe = data.meals;
     return (
         <div className={styles.container}>
-            <div className={styles.section_title}>recipes with {title}</div>
+            <Search />
+            <div className={styles.section_title}>
+                {recipe ? "" : "no "}
+                results for request &quot;{name}&quot;
+            </div>
             <section className={styles.section_main}>
                 {recipe?.map((mealItem) => {
                     const {
                         idMeal: id,
-                        strArea: area,
                         strMeal: meal,
                         strMealThumb: thumbnail,
                     } = mealItem;
@@ -31,13 +34,6 @@ const RecipeList = () => {
                                 <img src={thumbnail} alt={meal} />
                             </div>
                             <div className={styles.section_main_item_info}>
-                                <div
-                                    className={
-                                        styles.section_main_item_info_area
-                                    }
-                                >
-                                    {area}
-                                </div>
                                 <div
                                     className={
                                         styles.section_main_item_info_name
@@ -54,4 +50,4 @@ const RecipeList = () => {
     );
 };
 
-export default RecipeList;
+export default SearchPage;

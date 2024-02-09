@@ -1,4 +1,4 @@
-export const recipeConverter = ({recipe}) => {
+export const recipeConverter = ({ recipe }) => {
     let singleRecipe = {};
     if (recipe && recipe?.length > 0) {
         let ingredientsArr = [];
@@ -33,5 +33,5 @@ export const recipeConverter = ({recipe}) => {
             measures: measuresArr,
         };
     }
-    return singleRecipe
-}
+    return singleRecipe;
+};

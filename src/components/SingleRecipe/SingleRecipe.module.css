@@ -33,7 +33,30 @@
     object-fit: cover;
 }
 .intro {
-    margin-top: 16px;
+    margin-top: 0;
+}
+.intro_favorites{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
+}
+.intro_favorites img {
+    margin-left: 4px;
+    height: 20px;
+}
+.intro_favorites button{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+    border: 2px solid rgba(235, 0, 0, 0.4);
+    background-color: rgba(235, 0, 0, 0.2);
+    border-radius: 5px;
+    min-width: 150px;
+    min-height: 25px;
+    cursor: pointer;
 }
 .intro_title {
     padding: 12px 0;
