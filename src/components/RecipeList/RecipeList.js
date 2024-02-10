@@ -1,6 +1,4 @@
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { getDatabase, ref, update } from "firebase/database";
 import { useDispatch } from "react-redux";
 import styles from "./RecipeList.module.css";
 import { useSortByCategoryQuery } from "../../store/recipesApi";
@@ -9,19 +7,21 @@ import Search from "../Search/Search";
 import { useAuth } from "../../hooks/useAuth";
 import { getFavorites } from "../../store/slices/userSlice";
 import favIcon from "../../assets/favorite.svg";
+import { useFirebase } from "../../hooks/useFirebase";
 
 const RecipeList = () => {
     const { title } = useParams();
-    const { isAuth, uid, favorites } = useAuth();
+    const { isAuth, favorites } = useAuth();
     const { data, isLoading } = useSortByCategoryQuery(title);
+    const { firebaseFavorites, addFavorite, deleteFavorite } = useFirebase();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const database = getDatabase();
     const location = useLocation();
     const addToFavorites = (id) => {
         if (isAuth) {
             if (favorites && !favorites.includes(id)) {
                 dispatch(getFavorites([...favorites, id]));
+                addFavorite(id);
             }
         } else {
             navigate("/signin", { state: { from: location } });
@@ -31,17 +31,10 @@ const RecipeList = () => {
         if (isAuth) {
             if (favorites && favorites.includes(id)) {
                 dispatch(getFavorites(favorites.filter((item) => item !== id)));
+                deleteFavorite(id);
             }
         }
     };
-
-    useEffect(() => {
-        if (favorites) {
-            update(ref(database, "user/" + uid), {
-                Favorites: favorites,
-            });
-        }
-    }, [favorites]);
     if (isLoading) {
         return <Loader />;
     }
@@ -83,7 +76,7 @@ const RecipeList = () => {
                                 </div>
                             </Link>
                             <div className={styles.list_favorites}>
-                                {favorites?.includes(id) ? (
+                                {firebaseFavorites?.includes(id) ? (
                                     <button
                                         onClick={() => removeFromFavorites(id)}
                                     >
