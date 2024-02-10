@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getDatabase, ref, update } from "firebase/database";
 import { useDispatch } from "react-redux";
 import styles from "./SearchPage.module.css";
@@ -15,7 +15,6 @@ const SearchPage = () => {
     const { name } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const location = useLocation();
     const database = getDatabase();
     const { isLoading, data } = useRecipeSearchQuery(name);
     const addToFavorites = (id) => {
@@ -24,7 +23,7 @@ const SearchPage = () => {
                 dispatch(getFavorites([...favorites, id]));
             }
         } else {
-            navigate("/signin", { state: { from: location } });
+            navigate("/signin");
         }
     };
     const removeFromFavorites = (id) => {

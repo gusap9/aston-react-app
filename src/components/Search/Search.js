@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getDatabase, ref, update } from "firebase/database";
 import { useDispatch } from "react-redux";
@@ -25,8 +25,11 @@ const Search = () => {
     const handleSearchResult = (e) => {
         e.preventDefault();
         if (isAuth) {
-            if (!searches.includes(searchTerm)) {
+            if (searches && !searches.includes(searchTerm)) {
                 dispatch(getSearches([...searches, searchTerm]));
+                update(ref(database, "user/" + uid), {
+                    Searches: [...searches, searchTerm],
+                });
             }
         }
         navigate(`/search/${searchTerm}`);
@@ -37,13 +40,6 @@ const Search = () => {
     const onBlurChange = () => {
         setTimeout(() => setVisibleList(styles.disabled), 100);
     };
-    useEffect(() => {
-        if (searches) {
-            update(ref(database, "user/" + uid), {
-                Searches: searches,
-            });
-        }
-    }, [searches]);
     return (
         <form className={styles.form} onSubmit={(e) => handleSearchResult(e)}>
             <div className={styles.input_box}>

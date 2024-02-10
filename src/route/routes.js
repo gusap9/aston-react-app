@@ -5,6 +5,7 @@ import Header from "../components/Header/Header";
 import { RequireAuth } from "../hoc/RequireAuth";
 import { AuthProvider } from "../context/AuthContext";
 import Loader from "../components/Loader/Loader";
+import { RequireNotAuth } from "../hoc/RequireNotAuth";
 
 const Home = lazy(() => import("../pages/Home/Home"));
 const RecipeList = lazy(() => import("../components/RecipeList/RecipeList"));
@@ -44,8 +45,22 @@ function CustomRouter() {
                                 path={PATHS.RECIPE}
                                 element={<SingleRecipe />}
                             />
-                            <Route path={PATHS.SIGNIN} element={<SignIn />} />
-                            <Route path={PATHS.SIGNUP} element={<SignUp />} />
+                            <Route
+                                path={PATHS.SIGNIN}
+                                element={
+                                    <RequireNotAuth>
+                                        <SignIn />
+                                    </RequireNotAuth>
+                                }
+                            />
+                            <Route
+                                path={PATHS.SIGNUP}
+                                element={
+                                    <RequireNotAuth>
+                                        <SignUp />
+                                    </RequireNotAuth>
+                                }
+                            />
                             <Route
                                 path={PATHS.FAVORITES}
                                 element={

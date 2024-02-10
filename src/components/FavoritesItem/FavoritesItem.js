@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getDatabase, ref, update } from "firebase/database";
@@ -11,24 +11,17 @@ import { getFavorites } from "../../store/slices/userSlice";
 
 const FavoritesItem = ({ id }) => {
     const { isLoading, data } = useSingleRecipeQuery(id);
-    const { isAuth, uid, favorites } = useAuth();
+    const { uid, favorites } = useAuth();
     const dispatch = useDispatch();
     const database = getDatabase();
-
+    
     const removeFromFavorites = (id) => {
-        if (isAuth) {
-            if (favorites && favorites.includes(id)) {
-                dispatch(getFavorites(favorites.filter((item) => item !== id)));
-            }
-        }
+        dispatch(getFavorites(favorites.filter((item) => item !== id)));
+        update(ref(database, "user/" + uid), {
+            Favorites: favorites.filter((item) => item !== id),
+        });
     };
-    useEffect(() => {
-        if (favorites) {
-            update(ref(database, "user/" + uid), {
-                Favorites: favorites,
-            });
-        }
-    }, [favorites]);
+    
     if (isLoading) return <Loader />;
     const { idMeal, strMeal, strMealThumb } = data.meals[0];
     return (
