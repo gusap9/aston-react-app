@@ -1,10 +1,10 @@
+import { child, get, getDatabase, ref } from "firebase/database";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./Favorites.module.css";
 import FavoritesItem from "../../components/FavoritesItem/FavoritesItem";
-import { child, get, getDatabase, ref } from "firebase/database";
-import { useDispatch } from "react-redux";
 import { getFavorites } from "../../store/slices/userSlice";
-import { useEffect } from "react";
 
 const Favorites = () => {
     const { uid, favorites } = useAuth();

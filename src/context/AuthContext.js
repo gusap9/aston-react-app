@@ -1,6 +1,5 @@
 import { getAuth } from "firebase/auth";
 import React, { useEffect, useMemo, useState } from "react";
-// import { child, get, getDatabase, ref } from "firebase/database";
 import { useDispatch } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import { setUser } from "../store/slices/userSlice";
@@ -15,18 +14,6 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             if (user) {
-                // const dbRef = ref(getDatabase());
-                // await get(child(dbRef, `user/${user.uid}`))
-                //     .then((snapshot) => {
-                //         if (snapshot.exists()) {
-                            
-                //             user.savedSearches = snapshot.val().Searches || [];
-                //         } else {
-                            
-                //             user.savedSearches = [];
-                //         }
-                //     })
-                //     .catch((error) => alert(error.code));
                 dispatch(
                     setUser({
                         email: user.email,
