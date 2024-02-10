@@ -12,7 +12,7 @@ function SignIn() {
     const fromPage = location.state?.from?.pathname || "/";
     const handleLogin = (email, password) => {
         signInWithEmailAndPassword(auth, email, password).catch((error) =>
-            alert(error),
+            alert(error.code),
         );
     };
     const { currentUser } = useContext(AuthContext);

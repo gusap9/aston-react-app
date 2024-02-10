@@ -9,8 +9,9 @@ function SignUp() {
     const auth = getAuth();
     const navigate = useNavigate();
     const handleRegister = (email, password) => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .catch((error) => alert(error));
+        createUserWithEmailAndPassword(auth, email, password).catch((error) =>
+            alert(error.code),
+        );
     };
     const { currentUser } = useContext(AuthContext);
     useEffect(() => {
