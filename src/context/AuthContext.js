@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
                             user.savedSearches = [];
                         }
                     })
-                    .catch((error) => alert(error));
+                    .catch((error) => alert(error.code));
                 dispatch(
                     setUser({
                         email: user.email,
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
             setCurrentUser(user);
             setPending(false);
         });
-    });
+    }, []);
     if (pending) {
         return <Loader />;
     }
