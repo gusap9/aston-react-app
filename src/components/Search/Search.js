@@ -35,7 +35,7 @@ const Search = () => {
         setVisibleList(styles.results_list);
     };
     const onBlurChange = () => {
-        setVisibleList(styles.disabled);
+        setTimeout(() => setVisibleList(styles.disabled), 100);
     };
     useEffect(() => {
         if (searches) {
@@ -71,7 +71,11 @@ const Search = () => {
                     )}
                 </ul>
             </div>
-            <button type="submit" className={styles.button}>
+            <button
+                type="submit"
+                className={styles.button}
+                onSubmit={(e) => handleSearchResult(e)}
+            >
                 <img
                     src={searchIcon}
                     alt="search"
