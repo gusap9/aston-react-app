@@ -1,6 +1,6 @@
 import { getAuth } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import { child, get, getDatabase, ref } from "firebase/database";
+import React, { useEffect, useMemo, useState } from "react";
+// import { child, get, getDatabase, ref } from "firebase/database";
 import { useDispatch } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import { setUser } from "../store/slices/userSlice";
@@ -13,27 +13,27 @@ export const AuthProvider = ({ children }) => {
     const dispatch = useDispatch();
     const auth = getAuth();
     useEffect(() => {
-        auth.onAuthStateChanged(async (user) => {
+        auth.onAuthStateChanged((user) => {
             if (user) {
-                const dbRef = ref(getDatabase());
-                await get(child(dbRef, `user/${user.uid}`))
-                    .then((snapshot) => {
-                        if (snapshot.exists()) {
-                            user.favoriteFilms = snapshot.val().Favorites || [];
-                            user.savedSearches = snapshot.val().Searches || [];
-                        } else {
-                            user.favoriteFilms = [];
-                            user.savedSearches = [];
-                        }
-                    })
-                    .catch((error) => alert(error.code));
+                // const dbRef = ref(getDatabase());
+                // await get(child(dbRef, `user/${user.uid}`))
+                //     .then((snapshot) => {
+                //         if (snapshot.exists()) {
+                            
+                //             user.savedSearches = snapshot.val().Searches || [];
+                //         } else {
+                            
+                //             user.savedSearches = [];
+                //         }
+                //     })
+                //     .catch((error) => alert(error.code));
                 dispatch(
                     setUser({
                         email: user.email,
                         uid: user.uid,
                         token: user.accessToken,
-                        favorites: user.favoriteFilms,
-                        searches: user.savedSearches,
+                        favorites: [],
+                        searches: [],
                     }),
                 );
             }
@@ -42,11 +42,14 @@ export const AuthProvider = ({ children }) => {
             setPending(false);
         });
     }, []);
+    const currentUserValue = useMemo(() => ({
+        currentUser
+    }), [currentUser])
     if (pending) {
         return <Loader />;
     }
     return (
-        <AuthContext.Provider value={{ currentUser }}>
+        <AuthContext.Provider value={ currentUserValue }>
             {children}
         </AuthContext.Provider>
     );

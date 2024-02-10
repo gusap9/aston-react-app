@@ -1,9 +1,27 @@
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./Favorites.module.css";
 import FavoritesItem from "../../components/FavoritesItem/FavoritesItem";
+import { child, get, getDatabase, ref } from "firebase/database";
+import { useDispatch } from "react-redux";
+import { getFavorites } from "../../store/slices/userSlice";
+import { useEffect } from "react";
 
 const Favorites = () => {
-    const { favorites } = useAuth();
+    const { uid, favorites } = useAuth();
+    const dispatch = useDispatch();
+    const dbRef = ref(getDatabase());
+    useEffect(() => {
+        get(child(dbRef, `user/${uid}`))
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    dispatch(getFavorites(snapshot.val().Favorites));
+                } else {
+                    dispatch(getFavorites([]));
+                }
+            })
+            .catch((error) => alert(error.code));
+    }, []);
+
     return (
         <section className={styles.section}>
             <div className={styles.section_title}>Favorites</div>

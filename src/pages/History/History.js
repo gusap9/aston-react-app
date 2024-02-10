@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getDatabase, ref, update } from "firebase/database";
+import { child, get, getDatabase, ref, update } from "firebase/database";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./History.module.css";
 import { getSearches } from "../../store/slices/userSlice";
@@ -9,19 +9,27 @@ import { getSearches } from "../../store/slices/userSlice";
 const History = () => {
     const { searches, uid } = useAuth();
     const database = getDatabase();
+    const dbRef = ref(getDatabase());
     const dispatch = useDispatch();
     const removeSearch = (item) => {
-        if (searches.includes(item)) {
             dispatch(getSearches(searches.filter((el) => el !== item)));
-        }
-    };
-    useEffect(() => {
-        if (searches) {
             update(ref(database, "user/" + uid), {
-                Searches: searches,
+                Searches: searches.filter((el) => el !== item),
             });
-        }
-    }, [searches]);
+        
+    };
+    
+    useEffect(() => {
+        get(child(dbRef, `user/${uid}`))
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    dispatch(getSearches(snapshot.val().Searches));
+                } else {
+                    dispatch(getSearches([]));
+                }
+            })
+            .catch((error) => alert(error.code));
+    }, []);
     return (
         <section className={styles.section}>
             <div className={styles.section_title}>History</div>
