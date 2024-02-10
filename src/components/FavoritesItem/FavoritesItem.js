@@ -1,25 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getDatabase, ref, update } from "firebase/database";
 import favIcon from "../../assets/favorite.svg";
 import { useSingleRecipeQuery } from "../../store/recipesApi";
 import Loader from "../Loader/Loader";
 import styles from "./FavoritesItem.module.css";
 import { useAuth } from "../../hooks/useAuth";
 import { getFavorites } from "../../store/slices/userSlice";
+import { useFirebase } from "../../hooks/useFirebase";
 
 const FavoritesItem = ({ id }) => {
     const { isLoading, data } = useSingleRecipeQuery(id);
-    const { uid, favorites } = useAuth();
+    const { favorites } = useAuth();
     const dispatch = useDispatch();
-    const database = getDatabase();
-    
+    const { deleteFavorite } = useFirebase();
+
+
     const removeFromFavorites = (id) => {
         dispatch(getFavorites(favorites.filter((item) => item !== id)));
-        update(ref(database, "user/" + uid), {
-            Favorites: favorites.filter((item) => item !== id),
-        });
+        deleteFavorite(id);
     };
     
     if (isLoading) return <Loader />;

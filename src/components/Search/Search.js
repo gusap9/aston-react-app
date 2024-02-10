@@ -1,6 +1,5 @@
 import React, {  useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getDatabase, ref, update } from "firebase/database";
 import { useDispatch } from "react-redux";
 import searchIcon from "../../assets/search.svg";
 import styles from "./Search.module.css";
@@ -9,10 +8,11 @@ import { useRecipeSearchQuery } from "../../store/recipesApi";
 import Loader from "../Loader/Loader";
 import { useAuth } from "../../hooks/useAuth";
 import { getSearches } from "../../store/slices/userSlice";
+import { useFirebase } from "../../hooks/useFirebase";
 
 const Search = () => {
-    const { isAuth, uid, searches } = useAuth();
-    const database = getDatabase();
+    const { isAuth, searches } = useAuth();
+    const {addSearch} = useFirebase()
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
@@ -27,9 +27,7 @@ const Search = () => {
         if (isAuth) {
             if (searches && !searches.includes(searchTerm)) {
                 dispatch(getSearches([...searches, searchTerm]));
-                update(ref(database, "user/" + uid), {
-                    Searches: [...searches, searchTerm],
-                });
+                addSearch(searchTerm);
             }
         }
         navigate(`/search/${searchTerm}`);
