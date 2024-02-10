@@ -1,14 +1,11 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import styles from "../SignIn/SignIn.module.css";
 import SignUpForm from "../../components/Forms/SignUpForm";
-
+import { useFirebase } from "../../hooks/useFirebase";
 
 function SignUp() {
-    const auth = getAuth();
+    const { signUp } = useFirebase();
     const handleRegister = (email, password) => {
-        createUserWithEmailAndPassword(auth, email, password).catch((error) =>
-            alert(error.code),
-        );
+        signUp(email, password);
     };
     return (
         <div className={styles.container}>

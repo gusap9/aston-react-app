@@ -1,13 +1,11 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import styles from "../SignIn/SignIn.module.css";
 import SignInForm from "../../components/Forms/SignInForm";
+import { useFirebase } from "../../hooks/useFirebase";
 
 function SignIn() {
-    const auth = getAuth();
+    const { signIn } = useFirebase();
     const handleLogin = (email, password) => {
-        signInWithEmailAndPassword(auth, email, password).catch((error) =>
-            alert(error.code),
-        );
+        signIn(email, password);
     };
 
     return (
