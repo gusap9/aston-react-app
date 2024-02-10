@@ -32,7 +32,11 @@ const Header = () => {
                         <CustomLink to={PATHS.HISTORY}>History</CustomLink>
                         <CustomLink to={PATHS.FAVORITES}>Favorites</CustomLink>
                         <CustomLink
-                            to={PATHS.SIGNIN}
+                            to={PATHS.HOME}
+                            style={{
+                                color: "#41522E",
+                                textDecoration: "none",
+                            }}
                             onClick={() => {
                                 dispatch(removeUser());
                                 auth.signOut();

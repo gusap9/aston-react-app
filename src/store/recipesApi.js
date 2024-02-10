@@ -13,16 +13,36 @@ export const recipesApi = createApi({
     }),
     endpoints: (builder) => ({
         getCategory: builder.query({
-            query: () => `${CATEGORIES_URL}`,
+            query: () => ({
+                url: `${CATEGORIES_URL}`,
+                transformResponse: (response) => {
+                    return response.data;
+                },
+            }),
         }),
         singleRecipe: builder.query({
-            query: (id) => `${MEAL_SINGLE_URL}${id}`,
+            query: (id) => ({
+                url: `${MEAL_SINGLE_URL}${id}`,
+                transformResponse: (response) => {
+                    return response.data;
+                },
+            }),
         }),
         sortByCategory: builder.query({
-            query: (category) => `${MEAL_CATEGORIES_URL}${category}`,
+            query: (category) => ({
+                url: `${MEAL_CATEGORIES_URL}${category}`,
+                transformResponse: (response) => {
+                    return response.data;
+                },
+            }),
         }),
         recipeSearch: builder.query({
-            query: (searchTerm) => `${SEARCH_URL}${searchTerm}`,
+            query: (searchTerm) => ({
+                url: `${SEARCH_URL}${searchTerm}`,
+                transformResponse: (response) => {
+                    return response.data;
+                },
+            }),
         }),
     }),
 });

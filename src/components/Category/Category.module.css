@@ -23,7 +23,7 @@
     justify-content: center;
     padding: 10px;
 }
-.section_main_item_img{
+.section_main_item_img {
     border-radius: 5px;
 }
 .section_main_item img {
@@ -32,7 +32,7 @@
     width: 100%;
 }
 
-.section_main_item_info_name{
+.section_main_item_info_name {
     position: absolute;
     top: 16px;
     right: 16px;

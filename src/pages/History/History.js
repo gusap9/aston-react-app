@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { getDatabase, ref, update } from "firebase/database";
 import { useAuth } from "../../hooks/useAuth";
 import styles from "./History.module.css";
 import { getSearches } from "../../store/slices/userSlice";
 
 const History = () => {
-    const { searches } = useAuth();
+    const { searches, uid } = useAuth();
+    const database = getDatabase();
     const dispatch = useDispatch();
     const removeSearch = (item) => {
         if (searches.includes(item)) {
             dispatch(getSearches(searches.filter((el) => el !== item)));
         }
     };
+    useEffect(() => {
+        if (searches) {
+            update(ref(database, "user/" + uid), {
+                Searches: searches,
+            });
+        }
+    }, [searches]);
     return (
         <section className={styles.section}>
             <div className={styles.section_title}>History</div>

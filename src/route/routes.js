@@ -1,16 +1,20 @@
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../pages/Home/Home";
-import SignIn from "../pages/SignIn/SignIn";
-import SignUp from "../pages/SignUp/SignUp";
+import { ErrorBoundary } from "react-error-boundary";
 import Header from "../components/Header/Header";
-import SingleRecipe from "../components/SingleRecipe/SingleRecipe";
-import RecipeList from "../components/RecipeList/RecipeList";
-import NotFound from "../pages/ErrorPage/NotFound";
-import History from "../pages/History/History";
-import Favorites from "../pages/Favorites/Favorites";
-import SearchPage from "../pages/SearchPage/SearchPage";
 import { RequireAuth } from "../hoc/RequireAuth";
 import { AuthProvider } from "../context/AuthContext";
+import Loader from "../components/Loader/Loader";
+
+const Home = lazy(() => import("../pages/Home/Home"));
+const RecipeList = lazy(() => import("../components/RecipeList/RecipeList"));
+const SingleRecipe = lazy(() => import("../components/SingleRecipe/SingleRecipe"));
+const SignIn = lazy(() => import("../pages/SignIn/SignIn"));
+const SignUp = lazy(() => import("../pages/SignUp/SignUp"));
+const Favorites = lazy(() => import("../pages/Favorites/Favorites"));
+const History = lazy(() => import("../pages/History/History"));
+const SearchPage = lazy(() => import("../pages/SearchPage/SearchPage"));
+const NotFound = lazy(() => import("../pages/ErrorPage/NotFound"));
 
 export const PATHS = {
     HOME: "/",
@@ -26,34 +30,47 @@ export const PATHS = {
 function CustomRouter() {
     return (
         <AuthProvider>
-            <BrowserRouter>
-                <Header />
-                <Routes>
-                    <Route path={PATHS.HOME} element={<Home />} />
-                    <Route path={PATHS.CATEGORY} element={<RecipeList />} />
-                    <Route path={PATHS.RECIPE} element={<SingleRecipe />} />
-                    <Route path={PATHS.SIGNIN} element={<SignIn />} />
-                    <Route path={PATHS.SIGNUP} element={<SignUp />} />
-                    <Route
-                        path={PATHS.FAVORITES}
-                        element={
-                            <RequireAuth>
-                                <Favorites />
-                            </RequireAuth>
-                        }
-                    />
-                    <Route
-                        path={PATHS.HISTORY}
-                        element={
-                            <RequireAuth>
-                                <History />
-                            </RequireAuth>
-                        }
-                    />
-                    <Route path={PATHS.SEARCH} element={<SearchPage />} />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </BrowserRouter>
+            <ErrorBoundary FallbackComponent={<NotFound />}>
+                <BrowserRouter>
+                    <Header />
+                    <Suspense fullback={<Loader />}>
+                        <Routes>
+                            <Route path={PATHS.HOME} element={<Home />} />
+                            <Route
+                                path={PATHS.CATEGORY}
+                                element={<RecipeList />}
+                            />
+                            <Route
+                                path={PATHS.RECIPE}
+                                element={<SingleRecipe />}
+                            />
+                            <Route path={PATHS.SIGNIN} element={<SignIn />} />
+                            <Route path={PATHS.SIGNUP} element={<SignUp />} />
+                            <Route
+                                path={PATHS.FAVORITES}
+                                element={
+                                    <RequireAuth>
+                                        <Favorites />
+                                    </RequireAuth>
+                                }
+                            />
+                            <Route
+                                path={PATHS.HISTORY}
+                                element={
+                                    <RequireAuth>
+                                        <History />
+                                    </RequireAuth>
+                                }
+                            />
+                            <Route
+                                path={PATHS.SEARCH}
+                                element={<SearchPage />}
+                            />
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                    </Suspense>
+                </BrowserRouter>
+            </ErrorBoundary>
         </AuthProvider>
     );
 }

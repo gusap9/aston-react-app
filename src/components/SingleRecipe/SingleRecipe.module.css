@@ -35,7 +35,7 @@
 .intro {
     margin-top: 0;
 }
-.intro_favorites{
+.intro_favorites {
     display: flex;
     justify-content: flex-end;
     width: 100%;
@@ -45,7 +45,7 @@
     margin-left: 4px;
     height: 20px;
 }
-.intro_favorites button{
+.intro_favorites button {
     display: flex;
     align-items: center;
     font-size: 15px;
@@ -90,7 +90,7 @@
     font-size: 16px;
     font-weight: 700;
 }
-.source a{
+.source a {
     text-decoration: none;
     color: black;
 }

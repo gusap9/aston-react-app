@@ -4,7 +4,7 @@ import Loader from "../../components/Loader/Loader";
 import Search from "../../components/Search/Search";
 
 function Home() {
-    const { data, isLoading } = useGetCategoryQuery();
+    const { isLoading, data } = useGetCategoryQuery();
     if (isLoading) return <Loader />;
     return (
         <div>

@@ -7,7 +7,7 @@
     background-color: #ffffff;
     z-index: 100;
 }
-.navigator{
+.navigator {
     display: flex;
     position: fixed;
     width: 100%;
@@ -20,7 +20,7 @@
     align-items: center;
     white-space: nowrap;
     padding: 5px 10px;
-    gap:10px;
+    gap: 10px;
 }
 .link_container {
     position: relative;
