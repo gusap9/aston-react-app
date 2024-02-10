@@ -1,3 +1,8 @@
+import {
+    createUserWithEmailAndPassword,
+    getAuth,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
 import { getDatabase, onValue, ref, update } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -7,6 +12,7 @@ export function useFirebase() {
     const [firebaseFavorites, setFirebaseFavorites] = useState([]);
     const [firebaseSearches, setFirebaseSearches] = useState([]);
     const [loading, setLoading] = useState(true);
+    const auth = getAuth();
 
     const database = getDatabase();
     useEffect(() => {
@@ -30,15 +36,15 @@ export function useFirebase() {
         fetchData();
     }, []);
     const addFavorite = (newFavorite) => {
-        if(firebaseFavorites){update(ref(database, "user/" + uid), {
-            Favorites: [...firebaseFavorites, newFavorite],
-        });
+        if (firebaseFavorites) {
+            update(ref(database, "user/" + uid), {
+                Favorites: [...firebaseFavorites, newFavorite],
+            });
         } else {
             update(ref(database, "user/" + uid), {
                 Favorites: [newFavorite],
             });
         }
-        
     };
     const deleteFavorite = (removedFavorite) => {
         update(ref(database, "user/" + uid), {
@@ -55,9 +61,27 @@ export function useFirebase() {
         }
     };
     const deleteSearch = (removedSearch) => {
-        update((ref(database, "user/" + uid )),{Searches: firebaseSearches.filter((el) => el !== removedSearch)});
+        update(ref(database, "user/" + uid), {
+            Searches: firebaseSearches.filter((el) => el !== removedSearch),
+        });
+    };
+    const signUp = (email, password) => {
+        createUserWithEmailAndPassword(auth, email, password).catch((error) =>
+            alert(error.code),
+        );
+    };
+    const signIn = (email, password) => {
+        signInWithEmailAndPassword(auth, email, password).catch((error) =>
+            alert(error.code),
+        );
+    };
+    const signOut = () => {
+        auth.signOut();
     };
     return {
+        signOut,
+        signUp,
+        signIn,
         firebaseFavorites,
         firebaseSearches,
         loading,

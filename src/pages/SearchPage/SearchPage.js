@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getDatabase, ref, update } from "firebase/database";
 import { useDispatch } from "react-redux";
 import styles from "./SearchPage.module.css";
 import Search from "../../components/Search/Search";
@@ -9,18 +8,20 @@ import Loader from "../../components/Loader/Loader";
 import favIcon from "../../assets/favorite.svg";
 import { useAuth } from "../../hooks/useAuth";
 import { getFavorites } from "../../store/slices/userSlice";
+import { useFirebase } from "../../hooks/useFirebase";
 
 const SearchPage = () => {
-    const { isAuth, uid, favorites } = useAuth();
+    const { isAuth, favorites } = useAuth();
     const { name } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const database = getDatabase();
+    const { addFavorite, deleteFavorite } = useFirebase();
     const { isLoading, data } = useRecipeSearchQuery(name);
     const addToFavorites = (id) => {
         if (isAuth) {
             if (favorites && !favorites.includes(id)) {
                 dispatch(getFavorites([...favorites, id]));
+                addFavorite(id);
             }
         } else {
             navigate("/signin");
@@ -30,16 +31,10 @@ const SearchPage = () => {
         if (isAuth) {
             if (favorites && favorites.includes(id)) {
                 dispatch(getFavorites(favorites.filter((item) => item !== id)));
+                deleteFavorite(id);
             }
         }
     };
-    useEffect(() => {
-        if (favorites) {
-            update(ref(database, "user/" + uid), {
-                Favorites: favorites,
-            });
-        }
-    }, [favorites]);
     if (isLoading) return <Loader />;
     let recipe = data.meals;
     return (
