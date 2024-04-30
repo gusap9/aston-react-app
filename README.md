@@ -1,6 +1,7 @@
-# react-aston-project
+# <a href="https://superlative-monstera-9412bf.netlify.app/"><img alt="hotels-search" src="public/logo.svg" height="24px"> </img> Recipe Finder </a> 
 
 - Recipe-Finder – приложение для поиска рецептов блюд.
+- Deploy: [site](https://superlative-monstera-9412bf.netlify.app/).
 - Использованное API: [TheMealDB](https://www.themealdb.com/api.php).
 
 ---
